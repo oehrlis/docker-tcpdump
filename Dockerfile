@@ -33,6 +33,7 @@ ENV TCPDUMP="/tcpdump"
 # ----------------------------------------------------------------------
 # - install a package used to run tcpdump
 RUN apk add --update --no-cache tcpdump && \
+    mkdir -p ${TCPDUMP} && \
     rm -rf /var/cache/apk/*
 
 # define a volume for the tcpdump files
@@ -45,4 +46,4 @@ WORKDIR ${TCPDUMP}
 ENTRYPOINT [ "/usr/sbin/tcpdump" ]
 
 # Define default command for tcpdump
-CMD [ "-G", "900", "-v", "-i", "any", "-w", "${TCPDUMP}/tcpdump_%Y-%m-%d_%H:%M:%S.pcap", "-W","96"]
+CMD [ "-G", "900", "-v", "-i", "any", "-w", "tcpdump_%Y-%m-%d_%H:%M:%S.pcap", "-W","96"]
